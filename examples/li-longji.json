@@ -1,0 +1,44 @@
+{
+  "person": "李隆基（唐玄宗）",
+  "ticker": "LONGJI",
+  "title": "如果李隆基的人生是一只股票：LONGJI",
+  "angle": "political authority and the outcomes of imperial governance, not private happiness or human worth",
+  "portrait": "../assets/li-longji-portrait.png",
+  "ending": "生命停牌，盛世与战乱都留在历史里",
+  "note": "LONGJI 为权力与施政局势的概念指数，非真实股价或人生价值。终点归零仅表示生命终结；年份年龄约数。人物画像为 AI 艺术想象。",
+  "birthDate": "0685-09-08",
+  "periods": [
+    { "startYear": 685, "endYear": 709, "label": "宗室成长" },
+    { "startYear": 710, "endYear": 735, "label": "夺权与开元治理" },
+    { "startYear": 736, "endYear": 754, "label": "天宝时期的隐忧" },
+    { "startYear": 755, "endYear": 762, "label": "安史之乱与退位" }
+  ],
+  "events": [
+    { "date": "0685-09-08", "title": "出生于东都", "summary": "生于洛阳，成为唐睿宗李旦之子。", "value": 0, "kind": "neutral" },
+    { "date": "0710-07", "title": "发动唐隆政变", "summary": "联合太平公主等推翻韦后势力，获立为皇太子。", "value": 31, "kind": "up", "chartLabel": true },
+    { "date": "0712-09-12", "title": "即位为帝", "summary": "睿宗让位，李隆基登基；起初仍与太上皇分掌政权。", "value": 48, "kind": "up" },
+    { "date": "0713", "title": "平太平公主之争", "summary": "击败太平公主集团，掌握朝政，起用姚崇。", "value": 65, "kind": "up", "chartLabel": true },
+    { "date": "0716", "title": "任用宋璟为相", "summary": "宋璟入相，延续开元前期的整饬吏治。", "value": 76, "kind": "up" },
+    { "date": "0734", "title": "张九龄任中书令", "summary": "张九龄主持中枢，裴耀卿推进漕运；开元治理走向高峰。", "value": 94, "kind": "up", "chartLabel": true },
+    { "date": "0736", "title": "张九龄罢相", "summary": "张九龄退出决策中枢，李林甫升任中书令。", "value": 83, "kind": "down", "chartLabel": true },
+    { "date": "0742", "title": "改元天宝", "summary": "唐廷改元天宝，仍显繁盛，政治与边防风险逐渐积累。", "value": 78, "kind": "neutral" },
+    { "date": "0744", "title": "安禄山领范阳", "summary": "安禄山兼掌范阳等边镇，边将权力进一步集中。", "value": 71, "kind": "down" },
+    { "date": "0745", "title": "册立杨贵妃", "summary": "杨氏受册为贵妃；私人关系不单独作为乱局原因。", "value": 71, "kind": "neutral" },
+    { "date": "0751", "title": "南诏战事大败", "summary": "剑南军队在云南惨败，天宝后期边事承压。", "value": 58, "kind": "down" },
+    { "date": "0752-12-27", "title": "杨国忠继任右相", "summary": "李林甫死后杨国忠任右相，朝廷权力格局再变。", "value": 54, "kind": "down" },
+    { "date": "0754", "title": "未采纳安禄山预警", "summary": "太子奏称安禄山有反意，玄宗未采纳。", "value": 46, "kind": "down" },
+    { "date": "0755-12-16", "title": "安史之乱爆发", "summary": "安禄山起兵，唐朝陷入长期战乱。", "value": 18, "kind": "down", "chartLabel": true },
+    { "date": "0756", "title": "出逃、马嵬、退位", "summary": "潼关失守后出逃；马嵬事变，肃宗即位，玄宗为太上皇。", "value": 5, "kind": "down" },
+    { "date": "0757-12", "title": "返回长安", "summary": "两京收复后返京，已不再主导帝国政务。", "value": 8, "kind": "up" },
+    { "date": "0760", "title": "移居西内", "summary": "自兴庆宫迁往西内，晚年行动与影响力进一步受限。", "value": 4, "kind": "down" },
+    { "date": "0762-05-03", "title": "去世；LONGJI 停牌", "summary": "去世时约 76 岁；生命止于此，历史影响仍在。", "value": 0, "kind": "down", "chartLabel": true }
+  ],
+  "sources": [
+    { "title": "《旧唐书》卷八·玄宗上", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B78" },
+    { "title": "《旧唐书》卷九·玄宗下", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B79" },
+    { "title": "《旧唐书》卷十·肃宗", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B710" },
+    { "title": "《新唐书》卷五·睿宗玄宗", "url": "https://zh.wikisource.org/wiki/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B7005" },
+    { "title": "故宫博物院：唐玄宗", "url": "https://www.dpm.org.cn/lemmas/242060.html" },
+    { "title": "The Metropolitan Museum of Art: Tang Dynasty", "url": "https://www.metmuseum.org/ja/essays/tang-dynasty-618-906" }
+  ]
+}
