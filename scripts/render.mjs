@@ -5,7 +5,7 @@ import path from 'node:path';
 const usage = `Usage: node scripts/render.mjs INPUT.json OUTPUT.svg
 
 Input: person, ticker, title, note, birthDate, periods (1–4), optional
-portrait, and events (2–25). Each event needs date (YYYY, YYYY-MM, or
+locale (zh or en; defaults to zh), portrait, and events (2–25). Each event needs date (YYYY, YYYY-MM, or
 YYYY-MM-DD), title, summary, value (0–100), and kind (up/down/neutral).
 chartLabel: true annotates it inside the plot. Periods need startYear,
 endYear, and label; they must cover all events without overlapping.
@@ -22,6 +22,19 @@ if (process.argv.includes('--help') || process.argv.length !== 4) {
 const inputPath = path.resolve(process.argv[2]);
 const outputPath = path.resolve(process.argv[3]);
 const data = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+const locale = data.locale ?? 'zh';
+if (!['zh', 'en'].includes(locale)) throw Error('locale must be zh or en');
+const labels = locale === 'en' ? {
+  trajectory: 'Life trajectory',
+  precision: 'Years shown only  /  Conceptual narrative index',
+  index: 'index',
+  timeline: 'Timeline / Key events'
+} : {
+  trajectory: '人生走势',
+  precision: '图上年份只精确到年  /  指数是主观叙事设定',
+  index: '指数',
+  timeline: '时间轴 / 大事件'
+};
 const esc = s => String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');
 const required = (o, k) => { if (typeof o[k] !== 'string' || !o[k].trim()) throw Error(`Missing ${k}`); };
 ['person','ticker','title','note','birthDate'].forEach(k => required(data,k));
@@ -50,6 +63,10 @@ const events = data.events.map((e,i) => {
   prev = date;
   return {...e, dateInfo:date};
 });
+if (locale === 'en') {
+  const visible = [data.person, data.title, data.note, data.ending ?? '', ...data.periods.map(p => p.label), ...events.flatMap(e => [e.title, e.summary])];
+  if (visible.some(s => /[\u3400-\u9fff]/u.test(s))) throw Error('English chart contains CJK text; translate all visible fields');
+}
 const firstYear=events[0].dateInfo.year,lastYear=events.at(-1).dateInfo.year;
 let previousEnd=firstYear-1;
 for(const [i,p] of data.periods.entries()){
@@ -67,7 +84,8 @@ function ageAt(date) {
   const birthMonth=birth.month ?? 7, birthDay=birth.day ?? 1;
   const years=date.year-birth.year-((dateMonth<birthMonth||(dateMonth===birthMonth&&dateDay<birthDay))?1:0);
   const approximate=!birth.month||!birth.day||!date.month||(date.month===birth.month&&!date.day);
-  return `${approximate?'约':''}${Math.max(0,years)}岁`;
+  const age=Math.max(0,years);
+  return locale === 'en' ? `${approximate?'c. ':''}age ${age}` : `${approximate?'约':''}${age}岁`;
 }
 const yearAge=e=>`${e.dateInfo.year} · ${ageAt(e.dateInfo)}`;
 const axisAge=year=>`${year} · ${ageAt(parseDate(String(year).padStart(4,'0')))}`;
@@ -87,6 +105,18 @@ const out=[];
 const put=s=>out.push(s);
 const text=(x,y,s,size=18,fill='#111827',weight=400,extra='')=>put(`<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" font-weight="${weight}" ${extra}>${esc(s)}</text>`);
 function wrap(s,max=22,lines=2) {
+  if (locale === 'en') {
+    const words=String(s).split(/\s+/).filter(Boolean), result=[];
+    let row='';
+    for (const word of words) {
+      const next=row ? `${row} ${word}` : word;
+      if (next.length > max && row) { result.push(row); row=word; }
+      else row=next;
+    }
+    if (row) result.push(row);
+    if (result.length > lines) return [...result.slice(0,lines-1), `${result.slice(lines-1).join(' ').slice(0,max-1).trimEnd()}…`];
+    return result;
+  }
   const chars=[...s], result=[];
   while(chars.length && result.length<lines){
     let row='';
@@ -96,21 +126,22 @@ function wrap(s,max=22,lines=2) {
   if(chars.length) result[result.length-1]=result.at(-1).slice(0,-1)+'…';
   return result;
 }
-put(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(data.title)}" font-family="PingFang SC, Hiragino Sans GB, Arial Unicode MS, sans-serif">`);
+put(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(data.title)}" lang="${locale}" font-family="${locale === 'en' ? 'Arial, Helvetica, sans-serif' : 'PingFang SC, Hiragino Sans GB, Arial Unicode MS, sans-serif'}">`);
 put(`<defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#f7f8f7"/></linearGradient><linearGradient id="area" x2="0" y2="1"><stop stop-color="#33b47d" stop-opacity=".23"/><stop offset="1" stop-color="#33b47d" stop-opacity=".025"/></linearGradient></defs>`);
 put(`<rect width="${W}" height="${H}" fill="url(#paper)"/>`);
 put(`<rect x="52" y="30" width="9" height="31" rx="4" fill="#078d55"/>`);
 text(73,52,'LIFE / STOCK',20,'#078d55',800,'letter-spacing="3"');
-text(55,126,data.title,60,'#0c1110',800);
+if (locale === 'en') wrap(data.title,38,2).forEach((line,i)=>text(55,123+i*61,line,52,'#0c1110',800));
+else text(55,126,data.title,60,'#0c1110',800);
 if(data.portrait){
   const p=path.resolve(path.dirname(inputPath),data.portrait);
   const bytes=fs.readFileSync(p);
   const mime=p.toLowerCase().endsWith('.jpg')||p.toLowerCase().endsWith('.jpeg')?'image/jpeg':'image/png';
   put(`<image x="1243" y="8" width="305" height="275" preserveAspectRatio="xMidYMid meet" href="data:${mime};base64,${bytes.toString('base64')}"/>`);
 }
-text(59,294,'人生走势',32,'#111827',800);
-text(235,293,'图上年份只精确到年  /  指数是主观叙事设定',18,'#7c858d');
-text(60,538,`${esc(data.ticker)} 指数`,19,'#4b5563',700,'transform="rotate(-90 60 538)"');
+text(59,294,labels.trajectory,32,'#111827',800);
+text(locale === 'en' ? 304 : 235,293,labels.precision,18,'#7c858d');
+text(60,538,`${data.ticker} ${labels.index}`,19,'#4b5563',700,'transform="rotate(-90 60 538)"');
 for(let v=0;v<=100;v+=20){
   const y=yBase-v/100*(yBase-yTop);
   put(`<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${v===0?'#aeb8b2':'#e7eae9'}" stroke-width="${v===0?2:1}"/>`);
@@ -185,9 +216,9 @@ for(const p of data.periods){
 }
 text(x0,yBase+29,yearAge(events[0]),15,'#707b82',600,'text-anchor="middle"');
 text(x1,yBase+29,yearAge(events.at(-1)),15,'#707b82',600,'text-anchor="middle"');
-text(54,841,'时间轴 / 大事件',34,'#111827',800);
-put(`<line x1="326" y1="829" x2="1548" y2="829" stroke="#a4acb3" stroke-width="2"/>`);
-put(`<circle cx="326" cy="829" r="5" fill="#a4acb3"/>`);
+text(54,841,labels.timeline,34,'#111827',800);
+put(`<line x1="${locale === 'en' ? 450 : 326}" y1="829" x2="1548" y2="829" stroke="#a4acb3" stroke-width="2"/>`);
+put(`<circle cx="${locale === 'en' ? 450 : 326}" cy="829" r="5" fill="#a4acb3"/>`);
 const colX=[55,557,1059],colW=480,rowY=878,rowH=57;
 const counts=[Math.ceil(events.length/3),Math.ceil((events.length-Math.ceil(events.length/3))/2)];
 counts.push(events.length-counts[0]-counts[1]);
@@ -199,8 +230,8 @@ for(let col=0;col<3;col++){
     put(`<circle cx="${x+17}" cy="${y-7}" r="16" fill="${colors[e.kind]}"/>`);
     text(x+17,y-1,String(offset+j+1),16,'#fff',800,'text-anchor="middle"');
     text(x+45,y-1,yearAge(e),16,colors[e.kind],700);
-    text(x+178,y-1,e.title,17,'#111827',750);
-    const lines=wrap(e.summary,31,2);
+    text(x+178,y-1,e.title,locale === 'en' ? 15 : 17,'#111827',750);
+    const lines=wrap(e.summary,locale === 'en' ? 39 : 31,2);
     lines.forEach((line,k)=>text(x+178,y+18+k*16,line,14,'#5d6870'));
   });
   offset+=items.length;

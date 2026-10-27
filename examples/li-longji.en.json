@@ -1,0 +1,45 @@
+{
+  "locale": "en",
+  "person": "Li Longji (Emperor Xuanzong of Tang)",
+  "ticker": "LONGJI",
+  "title": "If Li Longji's Life Were a Stock: LONGJI",
+  "angle": "Political authority and the outcomes of imperial governance, not private happiness or human worth",
+  "portrait": "../assets/li-longji-portrait.png",
+  "ending": "Life ended; its consequences endured",
+  "note": "LONGJI is a conceptual index of political power and governance, not a real stock price or a measure of human worth. Zero marks the end of life.",
+  "birthDate": "0685-09-08",
+  "periods": [
+    { "startYear": 685, "endYear": 709, "label": "Royal upbringing" },
+    { "startYear": 710, "endYear": 735, "label": "Power and reform" },
+    { "startYear": 736, "endYear": 754, "label": "Mounting risks" },
+    { "startYear": 755, "endYear": 762, "label": "Rebellion and retreat" }
+  ],
+  "events": [
+    { "date": "0685-09-08", "title": "Born in Luoyang", "summary": "Born to Li Dan, the future Emperor Ruizong.", "value": 0, "kind": "neutral" },
+    { "date": "0710-07", "title": "Tanglong coup", "summary": "Helped overthrow Empress Wei's faction; became crown prince.", "value": 31, "kind": "up", "chartLabel": true },
+    { "date": "0712-09-12", "title": "Takes the throne", "summary": "Ruizong abdicated; Li Longji became emperor.", "value": 48, "kind": "up" },
+    { "date": "0713", "title": "Secures power", "summary": "Defeated Princess Taiping's faction and appointed Yao Chong.", "value": 65, "kind": "up", "chartLabel": true },
+    { "date": "0716", "title": "Appoints Song Jing", "summary": "Song Jing became chancellor as early Kaiyuan reforms continued.", "value": 76, "kind": "up" },
+    { "date": "0734", "title": "Kaiyuan high point", "summary": "Zhang Jiuling led the court as governance reached a peak.", "value": 94, "kind": "up", "chartLabel": true },
+    { "date": "0736", "title": "Zhang dismissed", "summary": "Zhang Jiuling left the center of power; Li Linfu rose.", "value": 83, "kind": "down", "chartLabel": true },
+    { "date": "0742", "title": "Tianbao era begins", "summary": "The era name changed amid prosperity and growing risks.", "value": 78, "kind": "neutral" },
+    { "date": "0744", "title": "An Lushan gains power", "summary": "An Lushan took command at Fanyang as frontier power grew.", "value": 71, "kind": "down" },
+    { "date": "0745", "title": "Yang becomes consort", "summary": "Yang was made a noble consort; private life alone does not explain the crisis.", "value": 71, "kind": "neutral" },
+    { "date": "0751", "title": "Nanzhao defeat", "summary": "Tang forces suffered a major defeat in the southwest.", "value": 58, "kind": "down" },
+    { "date": "0752-12-27", "title": "Yang Guozhong rises", "summary": "After Li Linfu's death, Yang Guozhong became right chancellor.", "value": 54, "kind": "down" },
+    { "date": "0754", "title": "Warning dismissed", "summary": "Xuanzong did not act on a warning about An Lushan.", "value": 46, "kind": "down" },
+    { "date": "0755-12-16", "title": "An Lushan Rebellion", "summary": "An Lushan rebelled, plunging the empire into prolonged war.", "value": 18, "kind": "down", "chartLabel": true },
+    { "date": "0756", "title": "Flight and abdication", "summary": "Fled the capital; the Mawei incident followed, and Suzong took the throne.", "value": 5, "kind": "down" },
+    { "date": "0757-12", "title": "Returns to Chang'an", "summary": "Returned after the capitals were retaken, without governing power.", "value": 8, "kind": "up" },
+    { "date": "0760", "title": "Moved to the west palace", "summary": "His movement and influence were further restricted.", "value": 4, "kind": "down" },
+    { "date": "0762-05-03", "title": "Death; LONGJI halted", "summary": "He died at about 76; his historical impact continued.", "value": 0, "kind": "down", "chartLabel": true }
+  ],
+  "sources": [
+    { "title": "Old Book of Tang, vol. 8", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B78" },
+    { "title": "Old Book of Tang, vol. 9", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B79" },
+    { "title": "Old Book of Tang, vol. 10", "url": "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B710" },
+    { "title": "New Book of Tang, vol. 5", "url": "https://zh.wikisource.org/wiki/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B7005" },
+    { "title": "Palace Museum: Emperor Xuanzong", "url": "https://www.dpm.org.cn/lemmas/242060.html" },
+    { "title": "Metropolitan Museum of Art: Tang Dynasty", "url": "https://www.metmuseum.org/ja/essays/tang-dynasty-618-906" }
+  ]
+}

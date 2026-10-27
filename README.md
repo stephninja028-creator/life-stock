@@ -1,12 +1,14 @@
 # Life Stock
 
-Turn a documented life into a conceptual stock chart, an event timeline, and a short Chinese post. The curve is an editorial metaphor for a stated angle, such as creative output or public influence. It is **not** a security price, a happiness score, or a measure of human worth.
+Turn a documented life into a conceptual stock chart, an event timeline, and a short post in Chinese or English. The curve is an editorial metaphor for a stated angle, such as creative output or public influence. It is **not** a security price, a happiness score, or a measure of human worth.
 
-![Li Longji example chart](preview/li-longji.png)
+Chinese chart: ![Li Longji example chart in Chinese](preview/li-longji.png)
+
+English chart: ![Li Longji example chart in English](preview/li-longji.en.png)
 
 ## Two ways to use it
 
-**Prompt only:** Copy [PROMPT.zh.md](PROMPT.zh.md) into any agent that can research and create images. The result may vary with the agent's tools.
+**Prompt only:** Copy the [Chinese prompt](PROMPT.zh.md) or [English-chart prompt](PROMPT.en.md) into any agent that can research and create images. The result may vary with the agent's tools.
 
 **Codex skill:** Clone this repository into your Codex skills directory:
 
@@ -14,7 +16,7 @@ Turn a documented life into a conceptual stock chart, an event timeline, and a s
 git clone https://github.com/stephninja028-creator/life-stock.git ~/.codex/skills/life-stock
 ```
 
-Then ask Codex, for example: `Use the life-stock skill to chart Mozart's life.` The [skill instructions](SKILL.md) ask the agent to verify events, choose no more than 25 meaningful nodes, render the chart, inspect it, and supply its sources. Shorter lives should use fewer nodes; 25 is a ceiling, not a target.
+Then ask Codex, for example: `Use the life-stock skill to chart Mozart's life in English.` The [skill instructions](SKILL.md) ask the agent to verify events, choose no more than 25 meaningful nodes, render the chart, inspect it, and supply its sources. Shorter lives should use fewer nodes; 25 is a ceiling, not a target.
 
 ## Render the included example yourself
 
@@ -22,6 +24,7 @@ The deterministic SVG renderer requires Node.js 18 or newer. It does not require
 
 ```bash
 node scripts/render.mjs examples/li-longji.json output/li-longji.svg
+node scripts/render.mjs examples/li-longji.en.json output/li-longji.en.svg
 ```
 
 On macOS, export a PNG with the included Swift/AppKit helper:
@@ -32,7 +35,9 @@ swift scripts/render_png.swift output/li-longji.svg output/li-longji.png
 
 On other systems, open the SVG in a browser or export it with your preferred SVG tool. The SVG embeds any locally referenced portrait so the resulting file is self-contained.
 
-The example includes [editable event data](examples/li-longji.json), [historical source notes](examples/li-longji-research.md), and a [Chinese post](examples/li-longji-post.md). Its portrait is AI-generated artwork, not an authentic historical likeness. The preview and index values are illustrative; review sources and editorial judgments before reposting them.
+Set `"locale": "en"` in the JSON for English chart labels and age notation; omit it or use `"zh"` for Chinese. The renderer does not translate event content, so provide event and period text in the chosen language.
+
+The example includes [Chinese event data](examples/li-longji.json), [English event data](examples/li-longji.en.json), [historical source notes](examples/li-longji-research.md), and a [Chinese post](examples/li-longji-post.md). Its portrait is AI-generated artwork, not an authentic historical likeness. The preview and index values are illustrative; review sources and editorial judgments before reposting them.
 
 ## Design rules
 
